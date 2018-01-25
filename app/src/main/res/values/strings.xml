@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Mood</string>
+    <string name="normal_mood">normal mood</string>
+    <string name="bad_mood">normal mood</string>
+    <string name="very_bad_mood">normal mood</string>
+    <string name="good_mood">normal mood</string>
+    <string name="very_good_mood">normal mood</string>
+    <string name="comment_btn">comment</string>
+    <string name="historical_btn">historical</string>
+    <string name="edit_comment">enter your commentary</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
