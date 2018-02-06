@@ -223,7 +223,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
             //scrolltoposition
-           int first = moodList.getIdPosition();
+        /*   int first = moodList.getIdPosition();
             if (first == 3){
                 int color = res.getColor(moodList.getBackground());
                 Drawable dr = res.getDrawable(moodList.getIcon());
@@ -246,9 +246,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                 emoticon.setImageDrawable(dr);
                 background.setBackgroundColor(color);
-            }
+            }*/
 
+            int color = res.getColor(moodList.getBackground());
+            Drawable dr = res.getDrawable(moodList.getIcon());
 
+            emoticon.setImageDrawable(dr);
+            background.setBackgroundColor(color);
 
         }
     }

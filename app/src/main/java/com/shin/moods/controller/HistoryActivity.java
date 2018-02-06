@@ -23,9 +23,9 @@ public class HistoryActivity extends AppCompatActivity {
 
         SharedPreferences mSharedPreferences;
         mSharedPreferences = getPreferences(MODE_PRIVATE);
-
+/*
         int background = mSharedPreferences.getInt("background",0);
-        String comment = mSharedPreferences.getString("comment", "");
+        String comment = mSharedPreferences.getString("comment", "");*/
 
 
     }
