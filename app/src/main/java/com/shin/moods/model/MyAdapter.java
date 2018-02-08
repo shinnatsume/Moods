@@ -1,34 +1,29 @@
 package com.shin.moods.model;
 
-import android.app.usage.UsageEvents;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.DragEvent;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
 import com.shin.moods.R;
 import com.shin.moods.controller.HistoryActivity;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static android.view.MotionEvent.ACTION_UP;
+
 
 /**
  * Created by shin on 15/01/2018.
@@ -40,9 +35,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     // TODO mise en forme de l'activite historic
     // TODO passer sur les fragments
     // TODO mettre les com en anglais
-    // TODO trouver pourquoi alert dialog crash l'appli si on click une segonde fois pour la lancer
-    // Todo recuperer les commentaires de l alert dialog pour les enregistrers dans  l objet Mood
 
+    
+    public  static  final String COLOR = "COLOR";
+    public  static  final String COMMENT = "COMMENT";
 
     /**
      * Object list of mood
@@ -67,6 +63,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public MyAdapter(Context ct) {
 
         res = ct.getResources();
+
     }
 
     @Override
@@ -106,18 +103,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         private String mDialogComment;
         private DialogClickListener mDialogClickListener;
         private ImageView imageMood;
-        public List historyMood;
-        private ImageButton comText;
-
-
-
-
-
+        public List historyMood= new ArrayList();
+        SharedPreferences mSharedPreferences;
 
 
         public MyViewHolder(final View itemView) {
 
             super(itemView);
+
+
 
             mContext = itemView.getContext();
 
@@ -129,7 +123,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
             imageMood = ((ImageView) itemView.findViewById(R.id.emoticon));
 
-            comText = (ImageButton) itemView.findViewById(R.id.comment_text_view);
 
 
 
@@ -197,11 +190,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             @Override
             public void onClick(View view) {
 
-               int color;
-                color = res.getColor(currentList.getBackground());
-                //historyMood.add(color);
+                   int color = res.getColor(currentList.getBackground());
 
-             //  Log.i("idMoood", "id mood clicked " +historyMood.get(color));
+                  /* int color;
+                    color = res.getColor(currentList.getBackground());
+                    //historyMood.add(color);*/
+
+                  Log.i("idMoood", "id mood clicked " +color);
+
+
+                   // mLinearLayout.setBackgroundColor(color);
+
+
+                  Log.i("list color","list color not empty   :"+historyMood.size());
+
+
 
 
             }
@@ -222,32 +225,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             currentList = moodList;
 
 
-            //scrolltoposition
-        /*   int first = moodList.getIdPosition();
-            if (first == 3){
-                int color = res.getColor(moodList.getBackground());
-                Drawable dr = res.getDrawable(moodList.getIcon());
-
-                emoticon.setImageDrawable(dr);
-                background.setBackgroundColor(color);
-            }
-            else if(first < 3){
-
-                int color = res.getColor(moodList.getBackground());
-                Drawable dr = res.getDrawable(moodList.getIcon());
-
-                emoticon.setImageDrawable(dr);
-                background.setBackgroundColor(color);
-            }
-
-            else if (first > 3){
-                int color = res.getColor(moodList.getBackground());
-                Drawable dr = res.getDrawable(moodList.getIcon());
-
-                emoticon.setImageDrawable(dr);
-                background.setBackgroundColor(color);
-            }*/
-
             int color = res.getColor(moodList.getBackground());
             Drawable dr = res.getDrawable(moodList.getIcon());
 
@@ -255,6 +232,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             background.setBackgroundColor(color);
 
         }
+
+
+
     }
 }
 

@@ -9,4 +9,11 @@
     <string name="comment_btn">commentaire</string>
     <string name="historical_btn">historique</string>
     <string name="edit_comment">enter votre commentaire</string>
+    <string name="seven_days">seven days ago</string>
+    <string name="six_days">six days ago</string>
+    <string name="five_days">five days ago</string>
+    <string name="four_days">four days ago</string>
+    <string name="tree_days">tree days ago</string>
+    <string name="two_days">two days ago</string>
+    <string name="one_days">one days ago</string>
 </resources>
