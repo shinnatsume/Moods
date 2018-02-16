@@ -27,9 +27,6 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.scrollToPosition(2);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new MyAdapter(this));
-
-
-
     }
 
 

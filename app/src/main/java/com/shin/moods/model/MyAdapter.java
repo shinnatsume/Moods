@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
@@ -23,9 +24,7 @@ import com.google.gson.Gson;
 import com.shin.moods.R;
 import com.shin.moods.controller.HistoryActivity;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -68,9 +67,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
      * get context
      */
     public MyAdapter(Context ct) {
-
         res = ct.getResources();
-
     }
 
     @Override
@@ -117,34 +114,29 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
             super(itemView);
 
-
-
             mContext = itemView.getContext();
-
             comment = ((ImageButton) itemView.findViewById(R.id.comment_btn));
             history = ((ImageButton) itemView.findViewById(R.id.history_btn));
-
             emoticon = ((ImageView) itemView.findViewById(R.id.emoticon));
             background = (ConstraintLayout) itemView.findViewById(R.id.layoutCell);
-
             imageMood = ((ImageView) itemView.findViewById(R.id.emoticon));
 
 
 
-
+            /**
+            * launch activity two
+            * */
             history.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent historyIntent = new Intent( mContext, HistoryActivity.class);
-
                     mContext.startActivity(historyIntent);
-
-
-
                 }
             });
 
-
+            /**
+            * button for add comment text
+            * */
             comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -184,39 +176,34 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 @Override
                 public void onDialogClick(String comment) {
                     mDialogComment = comment;
-                //    Log.i("MainActivity", "Text retrieved : " + mDialogComment);
-
-
-
-
                 }
             };
 
+            /**
+            * item for save current mood and pass to activity history
+            * */
             imageMood.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int idMood = currentList.getIdMood();
+
                     int color = res.getColor(currentList.getBackground());
+
                     Date dateClick = new Date();
 
                      Mood mood =  new Mood(0,color,0,0,idMood,null,dateClick) ;
-//                      appel des sharedPreferences
+//                   appel des sharedPreferences
                     SharedPreferences mPreferences = mContext.getSharedPreferences("mood",0);
                     SharedPreferences.Editor editor = mPreferences.edit();
-
-//                    permet de convertir un object en sting
+//                  permet de convertir un object en sting
                     Gson gson = new Gson();
                     String json ;
-
-                  //  Log.i("mood", "mood selected " +mDialogComment);
-
 
                     if (mDialogComment!=null){
                         mood.setCommentText(mDialogComment);
                       //  Log.i("mood", "mood selected " +mood.getCommentText());
                         json =gson.toJson(mood);
                         editor.putString("mood",json);
-
                         editor.apply();
                     }else {
 
