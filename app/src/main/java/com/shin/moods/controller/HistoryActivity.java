@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,15 +57,25 @@ public class HistoryActivity extends AppCompatActivity {
         String json = mPreferences.getString("mood","");
         mood = gson.fromJson(json,Mood.class);
 
+
+
+
+
+
        // Toast.makeText(this, (CharSequence) mood.getDate().toString(),Toast.LENGTH_SHORT).show();
         mMoodList.add(mood);
 
 
 //        Log.i("size list","size list !"+mMoodList.size());
-        if (mood!=null && mDate.getMinutes()> mood.getDate().getMinutes()){
+        if (mood!=null && mDate.getMinutes()- mood.getDate().getMinutes()==1){
             save();
 //            Toast.makeText(this,mMoodList.size(),Toast.LENGTH_SHORT).show();
             Log.i("size list","size list !"+mMoodList.size());
+        }
+        else if (mood!=null && mDate.getMinutes()> mood.getDate().getMinutes() && mDate.getMinutes()- mood.getDate().getMinutes()!=1){
+
+            mMoodList.add(new Mood(R.drawable.smiley_normal, R.color.cornflower_blue_65, R.drawable.ic_comment_black_48px, R.drawable.ic_history_black, 3, null,mDate));
+            save();
         }
 
 
