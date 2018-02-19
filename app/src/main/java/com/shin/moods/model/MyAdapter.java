@@ -1,13 +1,18 @@
 package com.shin.moods.model;
 
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +20,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-
+import com.google.gson.Gson;
 import com.shin.moods.R;
-import com.shin.moods.controller.AlertDialogActivity;
 import com.shin.moods.controller.HistoryActivity;
 
+
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+
+import static android.support.v4.content.ContextCompat.startActivity;
+
 
 /**
  * Created by shin on 15/01/2018.
@@ -33,18 +42,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     // TODO mise en forme de l'activite historic
     // TODO passer sur les fragments
     // TODO mettre les com en anglais
-    // TODO trouver pourquoi alert dialog crash l'appli si on click une segonde fois pour la lancer
-    // Todo recuperer les commentaires de l alert dialog pour les enregistrers dans  l objet Mood
 
+
+    public  static  final String COLOR = "COLOR";
+    public  static  final String COMMENT = "COMMENT";
 
     /**
      * Object list of mood
      */
-    private final List<Mood> mObjectList = Arrays.asList(new Mood(R.drawable.smiley_normal, R.color.cornflower_blue_65, R.drawable.ic_comment_black_48px, R.drawable.ic_history_black, 3, null),
-            new Mood(R.drawable.smiley_happy, R.color.light_sage, R.drawable.ic_comment_black_48px, R.drawable.ic_history_black, 4, null),
-            new Mood(R.drawable.smiley_disappointed, R.color.warm_grey, R.drawable.ic_comment_black_48px, R.drawable.ic_history_black, 2, null),
-            new Mood(R.drawable.smiley_sad, R.color.faded_red, R.drawable.ic_comment_black_48px, R.drawable.ic_history_black, 1, null),
-            new Mood(R.drawable.smiley_super_happy, R.color.banana_yellow, R.drawable.ic_comment_black_48px, R.drawable.ic_history_black, 5, null));
+    private final List<Mood> mObjectList = Arrays.asList(
+            new Mood(R.drawable.smiley_sad, R.color.faded_red, R.drawable.ic_comment_black_48px, R.drawable.ic_history_black, 1, null,null),
+            new Mood(R.drawable.smiley_disappointed, R.color.warm_grey, R.drawable.ic_comment_black_48px, R.drawable.ic_history_black, 2, null,null),
+            new Mood(R.drawable.smiley_normal, R.color.cornflower_blue_65, R.drawable.ic_comment_black_48px, R.drawable.ic_history_black, 3, null,null),
+            new Mood(R.drawable.smiley_happy, R.color.light_sage, R.drawable.ic_comment_black_48px, R.drawable.ic_history_black, 4, null,null),
+            new Mood(R.drawable.smiley_super_happy, R.color.banana_yellow, R.drawable.ic_comment_black_48px, R.drawable.ic_history_black, 5, null,null));
 
     /**
      * take Resouces from android resouces
@@ -57,7 +68,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
      * get context
      */
     public MyAdapter(Context ct) {
-
         res = ct.getResources();
     }
 
@@ -71,8 +81,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Mood arrays = mObjectList.get(position);
-        holder.display(arrays);
+        Mood mood = mObjectList.get(position);
+        holder.display(mood);
 
 
     }
@@ -95,8 +105,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         final ImageButton comment;
         final ImageButton history;
         Context mContext;
-        String editCommentString;
-        String commentText;
+        private String mDialogComment;
+        private DialogClickListener mDialogClickListener;
+        private ImageView imageMood;
+
 
 
         public MyViewHolder(final View itemView) {
@@ -104,42 +116,163 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
 
             mContext = itemView.getContext();
-
             comment = ((ImageButton) itemView.findViewById(R.id.comment_btn));
             history = ((ImageButton) itemView.findViewById(R.id.history_btn));
-
             emoticon = ((ImageView) itemView.findViewById(R.id.emoticon));
             background = (ConstraintLayout) itemView.findViewById(R.id.layoutCell);
+            imageMood = ((ImageView) itemView.findViewById(R.id.emoticon));
 
+
+
+            /**
+             * launch activity two
+             * */
             history.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent historyIntent = new Intent(mContext, HistoryActivity.class);
-
+                    Intent historyIntent = new Intent( mContext, HistoryActivity.class);
                     mContext.startActivity(historyIntent);
                 }
             });
 
-
+            /**
+             * button for add comment text
+             * */
             comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent comIntent = new Intent(mContext, AlertDialogActivity.class);
-                    mContext.startActivities(new Intent[]{comIntent});
+                    Context context = view.getContext();
+
+                    LayoutInflater layout = LayoutInflater.from(context);
+                    final View dialogView = layout.inflate(R.layout.alert_dialog, null);
+                    final EditText editText = (EditText) dialogView.findViewById(R.id.edit_comment);
+                    editText.setText("replace text here");
+
+                    AlertDialog show = new AlertDialog.Builder(context)
+                            .setTitle("pick up your comment")
+                            .setView(dialogView)
+                            .setPositiveButton("submit", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    mDialogClickListener.onDialogClick(editText.getText().toString());
+                                }
+
+                            })
+                            .setNegativeButton( "cancel", new DialogInterface.OnClickListener(){
 
 
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            })
+                            .show();
                 }
             });
-            EditText editText = (EditText) itemView.findViewById(R.id.edit_comment);
+                /**
+                 * create alert dialog for add comment
+                 * */
+            mDialogClickListener = new DialogClickListener() {
+                @Override
+                public void onDialogClick(String comment) {
+                    mDialogComment = comment;
+                }
+            };
+
+            /**
+             * item for save current mood and pass to activity history
+             * */
+            imageMood.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    int idMood = currentList.getIdMood();
+
+                    int color = res.getColor(currentList.getBackground());
+
+                    Date dateClick = new Date();
+
+                    Mood mood =  new Mood(0,color,0,0,idMood,null,dateClick) ;
+
+                    SharedPreferences mPreferences = mContext.getSharedPreferences("mood",0);
+                    SharedPreferences.Editor editor = mPreferences.edit();
+                    Gson gson = new Gson();
+                    String json ;
+
+                    if (mDialogComment!=null){
+                        mood.setCommentText(mDialogComment);
+                        json =gson.toJson(mood);
+                        editor.putString("mood",json);
+                        editor.apply();
+                    }else {
+
+                        json =gson.toJson(mood);
+                        editor.putString("mood",json);
+                        editor.apply();
+                    }
+                }
+            });
 
 
-            if (editText != null ) {
-                Log.i("edit", "edit" + editText);
-                commentText = currentList.setCommentText((String) editText.getText().toString());
-                EditText c = (EditText) itemView.findViewById(R.id.comment_text);
-                c.setText(commentText);
-            }
+            /**
+             * function to share
+             * */
+            imageMood.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Intent intent =  new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    int idMood = currentList.getIdMood();
+                    Drawable icon= res.getDrawable(currentList.getIcon());
+                    if (mDialogComment != null){
+                        String com = mDialogComment;
+                        switch (idMood){
+                            case 1:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam very sad "+com);
+                                break;
+                            case 2:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam sad "+com);
+                                break;
+                            case 3:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam normal "+com);
+                                break;
+                            case 4:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam happy "+com);
+                                break;
+                            case 5:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam very happy "+com);
+                                break;
+                        }
+
+                    }else{
+                        switch (idMood){
+                            case 1:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam very sad ");
+                                break;
+                            case 2:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam sad ");
+                                break;
+                            case 3:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam normal ");
+                                break;
+                            case 4:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam happy ");
+                                break;
+                            case 5:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam very happy ");
+                                break;
+                        }
+                    }
+                    mContext.startActivity(Intent.createChooser(intent,"Share!"));
+                    return true;
+                }
+            });
+
         }
+
+
+
+
 
         /**
          * method display its for moddify imageView And BackgroondColor ...
@@ -147,16 +280,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
          * @param moodList list of Object
          */
 
+
         public void display(Mood moodList) {
             currentList = moodList;
 
-//scrolltoposition
             int color = res.getColor(moodList.getBackground());
             Drawable dr = res.getDrawable(moodList.getIcon());
 
             emoticon.setImageDrawable(dr);
             background.setBackgroundColor(color);
-
 
         }
     }

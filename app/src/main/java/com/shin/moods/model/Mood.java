@@ -1,5 +1,7 @@
 package com.shin.moods.model;
 
+import java.util.Date;
+
 /**
  * Created by shin on 25/01/2018.
  */
@@ -10,18 +12,36 @@ public class Mood {
     private int background;
     private int comment;
     private int historic;
-    private int idPosition;
+    private int idMood;
     private String commentText;
+    private Date mDate;
 
 
 
-    public Mood(int icon, int background, int comment, int historic, int idPosition,String commentText) {
+    public Mood(int icon, int background, int comment, int historic, int idPosition,String commentText,Date mdate) {
         this.icon = icon;
         this.background = background;
         this.comment = comment;
         this.historic = historic;
-        this.idPosition = idPosition;
+        this.idMood = idPosition;
         this.commentText = commentText;
+        this.mDate = mdate;
+    }
+
+    public int getIdMood() {
+        return idMood;
+    }
+
+    public void setIdMood(int idMood) {
+        this.idMood = idMood;
+    }
+
+    public Date getDate() {
+        return mDate;
+    }
+
+    public void setDate(Date dateClick) {
+        this.mDate = dateClick;
     }
 
     public int getIcon() {
@@ -31,6 +51,7 @@ public class Mood {
     public void setIcon(int icon) {
         this.icon = icon;
     }
+
 
     public int getBackground() {
         return background;
@@ -56,13 +77,9 @@ public class Mood {
         this.historic = historic;
     }
 
-    public int getIdPosition() {
-        return idPosition;
-    }
 
-    public void setIdPosition(int idPosition) {
-        this.idPosition = idPosition;
-    }
+
+
 
     public String getCommentText() {
         return commentText;
