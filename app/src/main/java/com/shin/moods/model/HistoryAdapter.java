@@ -44,12 +44,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         Mood currentMood = mMoodList.get(position);
         date= new Date();
         if ( currentMood != null && mMoodList.size() !=0 && currentMood.getDate()!= null){
-
-
-
-
-
-
+                /**
+                 * switch to change the size of layout according to id of mood
+                 * */
                 int widthSet;
                 switch (currentMood.getIdMood()) {
                     case 1:
@@ -74,27 +71,31 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
                         break;
                 }
 
+            /**
+             * switch to change the text of layout according to the date
+             * */
+
                 switch (date.getMinutes() - currentMood.getDate().getMinutes()) {
                     case 6:
-                        holder.dateTextShow.setText("seven days ago");
+                        holder.dateTextShow.setText(R.string.seven_days);
                         break;
                     case 5:
-                        holder.dateTextShow.setText("six days ago");
+                        holder.dateTextShow.setText(R.string.six_days);
                         break;
                     case 4:
-                        holder.dateTextShow.setText("five days ago");
+                        holder.dateTextShow.setText(R.string.five_days);
                         break;
                     case 3:
-                        holder.dateTextShow.setText("four days ago");
+                        holder.dateTextShow.setText(R.string.four_days);
                         break;
                     case 2:
-                        holder.dateTextShow.setText("tree days ago");
+                        holder.dateTextShow.setText(R.string.tree_days);
                         break;
                     case 1:
-                        holder.dateTextShow.setText("yesterday");
+                        holder.dateTextShow.setText(R.string.two_days);
                         break;
                     case 0:
-                        holder.dateTextShow.setText("today");
+                        holder.dateTextShow.setText(R.string.one_days);
                         break;
 
             }

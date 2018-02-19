@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static android.support.v4.content.ContextCompat.startActivity;
 
 
 /**
@@ -80,8 +81,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Mood arrays = mObjectList.get(position);
-        holder.display(arrays);
+        Mood mood = mObjectList.get(position);
+        holder.display(mood);
 
 
     }
@@ -124,8 +125,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
             /**
-            * launch activity two
-            * */
+             * launch activity two
+             * */
             history.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -135,8 +136,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             });
 
             /**
-            * button for add comment text
-            * */
+             * button for add comment text
+             * */
             comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -154,9 +155,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     mDialogClickListener.onDialogClick(editText.getText().toString());
-                                  //  Log.i("Alert dialog","text submit : " +editText.getText());
-
-
                                 }
 
                             })
@@ -171,7 +169,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                             .show();
                 }
             });
-
+                /**
+                 * create alert dialog for add comment
+                 * */
             mDialogClickListener = new DialogClickListener() {
                 @Override
                 public void onDialogClick(String comment) {
@@ -180,28 +180,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             };
 
             /**
-            * item for save current mood and pass to activity history
-            * */
+             * item for save current mood and pass to activity history
+             * */
             imageMood.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     int idMood = currentList.getIdMood();
 
                     int color = res.getColor(currentList.getBackground());
 
                     Date dateClick = new Date();
 
-                     Mood mood =  new Mood(0,color,0,0,idMood,null,dateClick) ;
-//                   appel des sharedPreferences
+                    Mood mood =  new Mood(0,color,0,0,idMood,null,dateClick) ;
+
                     SharedPreferences mPreferences = mContext.getSharedPreferences("mood",0);
                     SharedPreferences.Editor editor = mPreferences.edit();
-//                  permet de convertir un object en sting
                     Gson gson = new Gson();
                     String json ;
 
                     if (mDialogComment!=null){
                         mood.setCommentText(mDialogComment);
-                      //  Log.i("mood", "mood selected " +mood.getCommentText());
                         json =gson.toJson(mood);
                         editor.putString("mood",json);
                         editor.apply();
@@ -214,7 +213,64 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 }
             });
 
+
+            /**
+             * function to share
+             * */
+            imageMood.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Intent intent =  new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    int idMood = currentList.getIdMood();
+                    Drawable icon= res.getDrawable(currentList.getIcon());
+                    if (mDialogComment != null){
+                        String com = mDialogComment;
+                        switch (idMood){
+                            case 1:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam very sad "+com);
+                                break;
+                            case 2:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam sad "+com);
+                                break;
+                            case 3:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam normal "+com);
+                                break;
+                            case 4:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam happy "+com);
+                                break;
+                            case 5:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam very happy "+com);
+                                break;
+                        }
+
+                    }else{
+                        switch (idMood){
+                            case 1:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam very sad ");
+                                break;
+                            case 2:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam sad ");
+                                break;
+                            case 3:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam normal ");
+                                break;
+                            case 4:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam happy ");
+                                break;
+                            case 5:
+                                intent.putExtra(Intent.EXTRA_TEXT,"Iam very happy ");
+                                break;
+                        }
+                    }
+                    mContext.startActivity(Intent.createChooser(intent,"Share!"));
+                    return true;
+                }
+            });
+
         }
+
+
 
 
 
@@ -228,7 +284,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public void display(Mood moodList) {
             currentList = moodList;
 
-
             int color = res.getColor(moodList.getBackground());
             Drawable dr = res.getDrawable(moodList.getIcon());
 
@@ -236,9 +291,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             background.setBackgroundColor(color);
 
         }
-
-
-
     }
 }
 

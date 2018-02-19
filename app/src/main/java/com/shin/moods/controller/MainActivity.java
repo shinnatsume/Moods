@@ -19,11 +19,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       //mise en place recyclerview
+       /**
+        * setting up recyclerview
+        * */
+
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
-        //permet de demarer l'application sur l'emoticon souhaiter
+        /**
+         *allows to start the application on the emoticon wish
+         * */
         linearLayoutManager.scrollToPosition(2);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new MyAdapter(this));

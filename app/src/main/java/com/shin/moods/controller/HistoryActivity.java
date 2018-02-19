@@ -2,6 +2,8 @@ package com.shin.moods.controller;
 
 
 
+import android.app.AlarmManager;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,66 +30,57 @@ import java.util.List;
 
 
 public class HistoryActivity extends AppCompatActivity {
-    List<Mood> mMoodList ;
-    Mood mood;
-    Date mDate = new Date();
-    private LinearLayout moods;
-    private ImageButton comText;
-    private TextView dateTextShow;
+    private List<Mood> mMoodList ;
+    private Mood mood;
+    private Date mDate = new Date();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /***
+         *loading the preferences list  and if null creation of the list
+         */
+
        List<Mood> list = load();
 
 
-        comText = (ImageButton) findViewById(R.id.comment_text_view);
 
-        moods = (LinearLayout) findViewById(R.id.mood_days);
-        dateTextShow = (TextView) findViewById(R.id.date_text);
-        //mise en place recyclerview
+        /**
+         * setting up recyclerview
+         * */
         final RecyclerView rView = (RecyclerView) findViewById(R.id.recyclerView);
-
         rView.setLayoutManager(new LinearLayoutManager(this));
         rView.setAdapter(new HistoryAdapter(this,list));
 
-
+        /**
+         * recovery of sharedPreferences mood
+         * */
         SharedPreferences mPreferences = this.getSharedPreferences("mood",0);
         Gson gson= new Gson();
         String json = mPreferences.getString("mood","");
         mood = gson.fromJson(json,Mood.class);
-
-
-
-
-
-
-       // Toast.makeText(this, (CharSequence) mood.getDate().toString(),Toast.LENGTH_SHORT).show();
+        /**
+         * add mood to the list
+         * */
         mMoodList.add(mood);
-
-
-//        Log.i("size list","size list !"+mMoodList.size());
-        if (mood!=null && mDate.getMinutes()- mood.getDate().getMinutes()==1){
-            save();
-//            Toast.makeText(this,mMoodList.size(),Toast.LENGTH_SHORT).show();
-            Log.i("size list","size list !"+mMoodList.size());
-        }
-        else if (mood!=null && mDate.getMinutes()> mood.getDate().getMinutes() && mDate.getMinutes()- mood.getDate().getMinutes()!=1){
-
-            mMoodList.add(new Mood(R.drawable.smiley_normal, R.color.cornflower_blue_65, R.drawable.ic_comment_black_48px, R.drawable.ic_history_black, 3, null,mDate));
+        /**
+         * save the list
+         * */
+        if (mood!=null && mDate.getMinutes()- mood.getDate().getMinutes()==1 ){
             save();
         }
-
-
-
 
     }
+
+    /**
+    * funtion for load or create the list
+    * */
     private List<Mood> load() {
 
-        //recuperation des sharedPrefernces
+
         SharedPreferences mPref = this.getSharedPreferences("list",0);
-        //transformation des strings preferences en objet
         Gson gson = new Gson();
         String json =mPref.getString("list",null);
         Type type = new TypeToken<List<Mood>>(){}.getType();
@@ -96,6 +90,11 @@ public class HistoryActivity extends AppCompatActivity {
         }
         return mMoodList;
     }
+
+    /***
+     *function for save the list
+     */
+
     public void save(){
 
         if(mMoodList.size()>6){
