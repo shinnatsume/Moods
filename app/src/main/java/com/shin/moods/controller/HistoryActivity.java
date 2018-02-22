@@ -64,7 +64,9 @@ public class HistoryActivity extends AppCompatActivity {
         /**
          * add mood to the list
          * */
-        mMoodList.add(mood);
+            mMoodList.add(mood);
+
+
         /**
          * save the list
          * */

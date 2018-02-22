@@ -15,6 +15,15 @@
     <string name="tree_days">tree days ago</string>
     <string name="two_days">two days ago</string>
     <string name="one_days">one days ago</string>
+    <string name="alertDialogTitle">pick up your comment</string>
+    <string name="positiveBtn">submit</string>
+    <string name="negativeBtn">cancel</string>
+    <string name="verySad">Iam very sad </string>
+    <string name="sad">Iam sad </string>
+    <string name="normal">Iam normal </string>
+    <string name="happy">Iam happy </string>
+    <string name="verryHappy">Iam very happy </string>
+    <string name="share">share</string>
 
 
 </resources>

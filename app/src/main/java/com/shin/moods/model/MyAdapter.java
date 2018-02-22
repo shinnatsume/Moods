@@ -146,19 +146,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     LayoutInflater layout = LayoutInflater.from(context);
                     final View dialogView = layout.inflate(R.layout.alert_dialog, null);
                     final EditText editText = (EditText) dialogView.findViewById(R.id.edit_comment);
-                    editText.setText("replace text here");
+                    editText.setText("");
 
                     AlertDialog show = new AlertDialog.Builder(context)
-                            .setTitle("pick up your comment")
+                            .setTitle(R.string.alertDialogTitle)
                             .setView(dialogView)
-                            .setPositiveButton("submit", new DialogInterface.OnClickListener() {
+                            .setPositiveButton( R.string.positiveBtn, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     mDialogClickListener.onDialogClick(editText.getText().toString());
                                 }
 
                             })
-                            .setNegativeButton( "cancel", new DialogInterface.OnClickListener(){
+                            .setNegativeButton( R.string.negativeBtn, new DialogInterface.OnClickListener(){
 
 
                                 @Override
