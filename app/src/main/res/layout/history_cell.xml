@@ -5,24 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/history_cell"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="86dp"
         android:id="@+id/mood_days"
-        >
+        android:orientation="vertical"        >
 
         <TextView
             android:id="@+id/date_text"
-            android:layout_width="329dp"
+            android:layout_width="151dp"
             android:layout_height="wrap_content"
-            android:text="@string/seven_days"/>
+            android:layout_marginLeft="6dp"
+            android:text="@string/seven_days" />
 
         <ImageButton
             android:id="@+id/comment_text_view"
-            android:layout_width="58dp"
+            android:layout_width="57dp"
             android:layout_height="match_parent"
+            android:layout_gravity="right"
             android:background="@android:color/transparent"
             app:srcCompat="@drawable/ic_comment_black_48px" />
     </LinearLayout>
