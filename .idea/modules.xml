@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Moods.iml" filepath="$PROJECT_DIR$/Moods.iml" />
+      <module fileurl="file://C:\Users\shin\pj1Android\Moods\Moods.iml" filepath="C:\Users\shin\pj1Android\Moods\Moods.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\shin\pj1Android\Moods\app\app.iml" filepath="C:\Users\shin\pj1Android\Moods\app\app.iml" />
     </modules>
   </component>
 </project>
