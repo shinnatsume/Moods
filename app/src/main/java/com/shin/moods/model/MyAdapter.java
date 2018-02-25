@@ -39,13 +39,6 @@ import static android.support.v4.content.ContextCompat.startActivity;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
-    // TODO mise en forme de l'activite historic
-    // TODO passer sur les fragments
-    // TODO mettre les com en anglais
-
-
-    public  static  final String COLOR = "COLOR";
-    public  static  final String COMMENT = "COMMENT";
 
     /**
      * Object list of mood
@@ -104,7 +97,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         private Mood currentList;
         final ImageButton comment;
         final ImageButton history;
-        Context mContext;
+        private Context mContext;
         private String mDialogComment;
         private DialogClickListener mDialogClickListener;
         private ImageView imageMood;
@@ -200,12 +193,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     String json ;
 
                     if (mDialogComment!=null){
+                        Log.i("mood ", "mood with comment"+mood.getDate()+mood.getIdMood()+mood.getCommentText()+mood.getBackground());
                         mood.setCommentText(mDialogComment);
                         json =gson.toJson(mood);
                         editor.putString("mood",json);
                         editor.apply();
                     }else {
-
+                        Log.i("mood ", "mood with out comment"+mood.getDate()+mood.getIdMood()+mood.getBackground());
                         json =gson.toJson(mood);
                         editor.putString("mood",json);
                         editor.apply();
@@ -226,44 +220,45 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     Drawable icon= res.getDrawable(currentList.getIcon());
                     if (mDialogComment != null){
                         String com = mDialogComment;
+
                         switch (idMood){
                             case 1:
-                                intent.putExtra(Intent.EXTRA_TEXT,"Iam very sad "+com);
+                                intent.putExtra(Intent.EXTRA_TEXT,res.getString(R.string.verySad)+" "+com);
                                 break;
                             case 2:
-                                intent.putExtra(Intent.EXTRA_TEXT,"Iam sad "+com);
+                                intent.putExtra(Intent.EXTRA_TEXT,res.getString(R.string.sad)+" "+com);
                                 break;
                             case 3:
-                                intent.putExtra(Intent.EXTRA_TEXT,"Iam normal "+com);
+                                intent.putExtra(Intent.EXTRA_TEXT,res.getString(R.string.normal)+" "+com);
                                 break;
                             case 4:
-                                intent.putExtra(Intent.EXTRA_TEXT,"Iam happy "+com);
+                                intent.putExtra(Intent.EXTRA_TEXT,res.getString(R.string.happy)+" "+com);
                                 break;
                             case 5:
-                                intent.putExtra(Intent.EXTRA_TEXT,"Iam very happy "+com);
+                                intent.putExtra(Intent.EXTRA_TEXT,res.getString(R.string.veryHappy)+" "+com);
                                 break;
                         }
 
                     }else{
                         switch (idMood){
                             case 1:
-                                intent.putExtra(Intent.EXTRA_TEXT,"Iam very sad ");
+                                intent.putExtra(Intent.EXTRA_TEXT,res.getString(R.string.verySad));
                                 break;
                             case 2:
-                                intent.putExtra(Intent.EXTRA_TEXT,"Iam sad ");
+                                intent.putExtra(Intent.EXTRA_TEXT,res.getString(R.string.sad));
                                 break;
                             case 3:
-                                intent.putExtra(Intent.EXTRA_TEXT,"Iam normal ");
+                                intent.putExtra(Intent.EXTRA_TEXT,res.getString(R.string.normal));
                                 break;
                             case 4:
-                                intent.putExtra(Intent.EXTRA_TEXT,"Iam happy ");
+                                intent.putExtra(Intent.EXTRA_TEXT,res.getString(R.string.happy));
                                 break;
                             case 5:
-                                intent.putExtra(Intent.EXTRA_TEXT,"Iam very happy ");
+                                intent.putExtra(Intent.EXTRA_TEXT,res.getString(R.string.veryHappy));
                                 break;
                         }
                     }
-                    mContext.startActivity(Intent.createChooser(intent,"Share!"));
+                    mContext.startActivity(Intent.createChooser(intent,res.getString(R.string.share)));
                     return true;
                 }
             });

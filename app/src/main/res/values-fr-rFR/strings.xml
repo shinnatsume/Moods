@@ -23,7 +23,7 @@
     <string name="sad">je suis en colere </string>
     <string name="normal">je suis bien </string>
     <string name="happy">je suis heureux </string>
-    <string name="verryHappy">je suis tres heureux </string>
+    <string name="veryHappy">je suis tres heureux </string>
     <string name="share">partager</string>
 
 </resources>

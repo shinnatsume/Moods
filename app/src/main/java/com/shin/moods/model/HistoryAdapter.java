@@ -3,6 +3,7 @@ package com.shin.moods.model;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
                 /**
                  * switch to change the size of layout according to id of mood
                  * */
+
+                Log.i("idmood","idmood"+currentMood.getIdMood());
                 int widthSet;
                 switch (currentMood.getIdMood()) {
                     case 1:
@@ -74,7 +77,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             /**
              * switch to change the text of layout according to the date
              * */
-
+                Log.i("date","date mood"+currentMood.getDate());
                 switch (date.getMinutes() - currentMood.getDate().getMinutes()) {
                     case 6:
                         holder.dateTextShow.setText(R.string.seven_days);
