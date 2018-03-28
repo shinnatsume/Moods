@@ -1,6 +1,6 @@
 humeur
 
-cette application reprend le fonctionnement de Mr Mood sur iPhone. Elle sert a enregistrer son humeur journalière et permet d'en retrouver un historique sur sept jours. Nous lui avons apporté des améliorations en ajoutant la possibilité d'enregistrer un commentaire, et donc de pouvoir le retrouver dans l'historique des humeurs. Il est également possible de partager cette humeur sur les réseaux et si un commentaire a été enregistré avant le partage, le commentaire sera envoyé avec.
+cette application reprend le fonctionnement de Mr Mood sur iPhone. Elle sert à enregistrer son humeur journalière et permet d'en retrouver un historique sur sept jours. Nous lui avons apporté des améliorations en ajoutant la possibilité d'enregistrer un commentaire, et donc de pouvoir le retrouver dans l'historique des humeurs. Il est également possible de partager cette humeur et si un commentaire a été enregistré avant le partage, il sera envoyé avec.
 
 pour télécharger cette application : https://github.com/shinnatsume/Moods.git
 
@@ -12,7 +12,7 @@ pour sélectionner une humeur, faire un slide de haut en bas pour trouver celle 
 
 pour ajouter un commentaire, cliquer sur le bouton en bas à gauche,taper votre texte et valider
 
-pour partager votre humeur, faire un clic long sur celle de votre choix
+pour partager votre humeur, faire un clic long sur celle de votre choix puis sélectionner l'application avec laquelle la partager
 
 enfin pour consulter votre historique, cliquer sur le bouton en bas à droite
 
