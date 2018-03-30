@@ -20,10 +20,10 @@ import com.shin.moods.model.MyAdapter;
 public class MainActivity extends AppCompatActivity {
 
 LinearLayoutManager mLinearLayoutManager;
-    RecyclerView recyclerView;
-    int position;
-    int positionSaved=-1;
-    int positionInit=2;
+    private RecyclerView recyclerView;
+    private int position;
+    private int positionSaved=-1;
+    private int positionInit=2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +33,12 @@ LinearLayoutManager mLinearLayoutManager;
 
         SharedPreferences pref = this.getSharedPreferences("state",0);
         positionSaved = pref.getInt("state", -1);
-       
+
        /**
         * setting up recyclerview
         * */
 
-         recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
         mLinearLayoutManager = new LinearLayoutManager(this);
 
         /**
@@ -72,7 +72,7 @@ LinearLayoutManager mLinearLayoutManager;
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("state",position);
         editor.apply();
-        Log.i("position","position"+position);
+//        Log.i("position","position"+position);
         super.onStop();
     }
     public void onPause() {

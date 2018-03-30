@@ -61,17 +61,17 @@ public class HistoryActivity extends AppCompatActivity {
         /**
          * save the list. getMinute() is there to test the application
          * */
-//        if (mood!=null && (mDate.getMinutes()- mood.getDate().getMinutes()==1) ){
-//            save();
-//            mPreferences.edit().clear().apply();
-//        }
-        /**
-         * save the list for application in production
-         * */
-        if (mood!=null && (mDate.getDay()- mood.getDate().getDay()==1) ){
+        if (mood!=null && (mDate.getMinutes()- mood.getDate().getMinutes()==1) ){
             save();
             mPreferences.edit().clear().apply();
         }
+        /**
+         * save the list for application in production
+         * */
+//        if (mood!=null && (mDate.getDay()- mood.getDate().getDay()==1) ){
+//            save();
+//            mPreferences.edit().clear().apply();
+//        }
 
     }
 

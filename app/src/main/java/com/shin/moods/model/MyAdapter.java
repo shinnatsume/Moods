@@ -11,9 +11,7 @@ import android.media.MediaPlayer;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -164,9 +162,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                             .show();
                 }
             });
-                /**
-                 * create alert dialog for add comment
-                 * */
+            /**
+             * create alert dialog for add comment
+             * */
             mDialogClickListener = new DialogClickListener() {
                 @Override
                 public void onDialogClick(String comment) {

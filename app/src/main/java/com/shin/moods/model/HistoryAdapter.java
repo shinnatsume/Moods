@@ -45,61 +45,61 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         Mood currentMood = mMoodList.get(position);
         date= new Date();
         if ( currentMood != null && mMoodList.size() !=0 && currentMood.getDate()!= null){
-                /**
-                 * switch to change the size of layout according to id of mood
-                 * */
+            /**
+             * switch to change the size of layout according to id of mood
+             * */
 
-                Log.i("idmood","idmood"+currentMood.getIdMood());
-                int widthSet;
-                switch (currentMood.getIdMood()) {
-                    case 1:
-                        widthSet = 850;
-                        holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
-                        break;
-                    case 2:
-                        widthSet = 950;
-                        holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
-                        break;
-                    case 3:
-                        widthSet = 1050;
-                        holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
-                        break;
-                    case 4:
-                        widthSet = 1250;
-                        holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
-                        break;
-                    case 5:
-                        widthSet = ViewGroup.LayoutParams.MATCH_PARENT;
-                        holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
-                        break;
-                }
+            Log.i("idmood","idmood"+currentMood.getIdMood());
+            int widthSet;
+            switch (currentMood.getIdMood()) {
+                case 1:
+                    widthSet = 850;
+                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
+                    break;
+                case 2:
+                    widthSet = 950;
+                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
+                    break;
+                case 3:
+                    widthSet = 1050;
+                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
+                    break;
+                case 4:
+                    widthSet = 1250;
+                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
+                    break;
+                case 5:
+                    widthSet = ViewGroup.LayoutParams.MATCH_PARENT;
+                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
+                    break;
+            }
 
             /**
              * switch to change the text of layout according to the date
              * */
-                Log.i("date","date mood"+currentMood.getDate());
-                switch (date.getMinutes() - currentMood.getDate().getMinutes()) {
-                    case 6:
-                        holder.dateTextShow.setText(R.string.seven_days);
-                        break;
-                    case 5:
-                        holder.dateTextShow.setText(R.string.six_days);
-                        break;
-                    case 4:
-                        holder.dateTextShow.setText(R.string.five_days);
-                        break;
-                    case 3:
-                        holder.dateTextShow.setText(R.string.four_days);
-                        break;
-                    case 2:
-                        holder.dateTextShow.setText(R.string.tree_days);
-                        break;
-                    case 1:
-                        holder.dateTextShow.setText(R.string.two_days);
-                        break;
-                    case 0:
-                        holder.dateTextShow.setText(R.string.one_days);
-                        break;
+            Log.i("date","date mood"+currentMood.getDate());
+            switch (date.getMinutes() - currentMood.getDate().getMinutes()) {
+                case 6:
+                    holder.dateTextShow.setText(R.string.seven_days);
+                    break;
+                case 5:
+                    holder.dateTextShow.setText(R.string.six_days);
+                    break;
+                case 4:
+                    holder.dateTextShow.setText(R.string.five_days);
+                    break;
+                case 3:
+                    holder.dateTextShow.setText(R.string.four_days);
+                    break;
+                case 2:
+                    holder.dateTextShow.setText(R.string.tree_days);
+                    break;
+                case 1:
+                    holder.dateTextShow.setText(R.string.two_days);
+                    break;
+                case 0:
+                    holder.dateTextShow.setText(R.string.one_days);
+                    break;
 
             }
 
