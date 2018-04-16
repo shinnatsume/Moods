@@ -13,8 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.shin.moods.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by shin on 12/02/2018.
@@ -49,7 +51,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
              * switch to change the size of layout according to id of mood
              * */
 
-            Log.i("idmood","idmood"+currentMood.getIdMood());
+//            Log.i("idmood","idmood"+currentMood.getIdMood());
             int widthSet;
             switch (currentMood.getIdMood()) {
                 case 1:
@@ -77,8 +79,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             /**
              * switch to change the text of layout according to the date
              * */
-            Log.i("date","date mood"+currentMood.getDate());
-            switch (date.getMinutes() - currentMood.getDate().getMinutes()) {
+
+            String format = "dd";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, Locale.FRANCE);
+            String currentDate = simpleDateFormat.format(date);
+            String moodDate = simpleDateFormat.format(currentMood.getDate());
+            int result =Integer.parseInt(currentDate) -Integer.parseInt(moodDate);
+            Log.i("result","result  " + moodDate+" "+result);
+//            switch (date.getMinutes() - currentMood.getDate().getMinutes()) {
+                switch (Integer.parseInt(currentDate) -Integer.parseInt(moodDate) ) {
                 case 6:
                     holder.dateTextShow.setText(R.string.seven_days);
                     break;

@@ -193,13 +193,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     String json ;
 
                     if (mDialogComment!=null){
-                        Log.i("mood ", "mood with comment"+mood.getDate()+mood.getIdMood()+mood.getCommentText()+mood.getBackground());
+//                        Log.i("mood ", "mood with comment"+mood.getDate()+mood.getIdMood()+mood.getCommentText()+mood.getBackground());
                         mood.setCommentText(mDialogComment);
                         json =gson.toJson(mood);
                         editor.putString("mood",json);
                         editor.apply();
                     }else {
-                        Log.i("mood ", "mood with out comment"+mood.getDate()+mood.getIdMood()+mood.getBackground());
+//                        Log.i("mood ", "mood with out comment"+mood.getDate()+mood.getIdMood()+mood.getBackground());
                         json =gson.toJson(mood);
                         editor.putString("mood",json);
                         editor.apply();
