@@ -2,7 +2,7 @@ package com.shin.moods.controller;
 
 
 
-import android.content.Context;
+
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.util.Log;
-import android.view.View;
 
 
 import com.shin.moods.R;
@@ -24,6 +23,7 @@ LinearLayoutManager mLinearLayoutManager;
     private int position;
     private int positionSaved=-1;
     private int positionInit=2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ LinearLayoutManager mLinearLayoutManager;
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("state",position);
         editor.apply();
-//        Log.i("position","position"+position);
+        Log.i("position","position"+position);
         super.onStop();
     }
     public void onPause() {

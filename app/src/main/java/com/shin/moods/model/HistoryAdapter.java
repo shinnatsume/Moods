@@ -3,10 +3,12 @@ package com.shin.moods.model;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,28 +53,34 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
              * switch to change the size of layout according to id of mood
              * */
 
-//            Log.i("idmood","idmood"+currentMood.getIdMood());
+            DisplayMetrics metrics = new DisplayMetrics();
+            WindowManager windowManager = (WindowManager) context
+                    .getSystemService(Context.WINDOW_SERVICE);
+            windowManager.getDefaultDisplay().getMetrics (metrics);
+
+            Log.i("idmood","idmood"+currentMood.getIdMood());
             int widthSet;
+            int heightSet=(int) (metrics.heightPixels/6.8);
             switch (currentMood.getIdMood()) {
                 case 1:
-                    widthSet = 850;
-                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
+                    widthSet = (int) (metrics.widthPixels/1.7);
+                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, heightSet));
                     break;
                 case 2:
-                    widthSet = 950;
-                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
+                    widthSet = (int) (metrics.widthPixels/1.5);
+                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, heightSet));
                     break;
                 case 3:
-                    widthSet = 1050;
-                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
+                    widthSet = (int) (metrics.widthPixels/1.3);
+                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, heightSet));
                     break;
                 case 4:
-                    widthSet = 1250;
-                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
+                    widthSet = (int) (metrics.widthPixels/1.1);
+                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, heightSet));
                     break;
                 case 5:
                     widthSet = ViewGroup.LayoutParams.MATCH_PARENT;
-                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, 301));
+                    holder.moods.setLayoutParams(new LinearLayout.LayoutParams(widthSet, heightSet));
                     break;
             }
 

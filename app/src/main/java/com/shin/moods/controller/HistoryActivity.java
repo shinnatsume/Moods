@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class HistoryActivity extends AppCompatActivity {
+public class  HistoryActivity extends AppCompatActivity {
     private List<Mood> mMoodList ;
     private Mood mood;
     private Date mDate = new Date();
@@ -120,7 +120,7 @@ public class HistoryActivity extends AppCompatActivity {
         if(mMoodList.size()>6){
             mMoodList.remove(0);
         }
-//        Log.i("size List", "size list mood"+mMoodList.size());
+        Log.i("size List", "size list mood"+mMoodList.size());
         SharedPreferences preferences = this.getSharedPreferences("list",0);
         SharedPreferences.Editor editor =preferences.edit();
         Gson gson = new Gson();
