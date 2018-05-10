@@ -10,11 +10,11 @@ lancer votre émulateur ou brancher votre smartphone
 
 pour sélectionner une humeur, faire un slide de haut en bas pour trouver celle qui corespond à la vôtre et cliquer dessus
 
-pour ajouter un commentaire, cliquer sur le bouton en bas à gauche,taper votre texte et valider
+pour ajouter un commentaire, cliquer sur le bouton en bas à gauche,taper votre texte et valider puis confirmer la validation en cliquant sur l'icône "humeur" choisie
 
 pour partager votre humeur, faire un clic long sur celle de votre choix puis sélectionner l'application avec laquelle la partager
 
-enfin pour consulter votre historique, cliquer sur le bouton en bas à droite
+enfin, pour consulter votre historique, cliquer sur le bouton en bas à droite
 
 il est possible de changer d'humeur autant de fois que souhaité tout au long de la journée
 
